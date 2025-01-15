@@ -4,7 +4,8 @@
     "start": "NODE_ENV=production deno run -A --node-modules-dir src/server/index.ts",
     "build": "deno task build:client && deno task build:server",
     "build:client": "deno run -A --node-modules-dir npm:vite build --outDir dist/client",
-    "build:server": "deno run -A --node-modules-dir npm:vite build --ssr src/entrypoints/entry-server.tsx --outDir dist/server"
+    "build:server": "deno run -A --node-modules-dir npm:vite build --ssr src/entrypoints/entry-server.tsx --outDir dist/server",
+    "check": "deno fmt --check && deno lint && deno check ."
   },
   "unstable": [
     "bare-node-builtins"
