@@ -1,0 +1,34 @@
+{
+  "tasks": {
+    "dev": "NODE_ENV=development deno run -A --node-modules-dir --watch src/server/index.ts",
+    "start": "NODE_ENV=production deno run -A --node-modules-dir src/server/index.ts",
+    "build": "deno task build:client && deno task build:server",
+    "build:client": "deno run -A --node-modules-dir npm:vite build --outDir dist/client",
+    "build:server": "deno run -A --node-modules-dir npm:vite build --ssr src/entrypoints/entry-server.tsx --outDir dist/server"
+  },
+  "unstable": [
+    "bare-node-builtins"
+  ],
+  "compilerOptions": {
+    "lib": [
+      "ES2020",
+      "DOM",
+      "DOM.Iterable"
+    ],
+    "jsx": "react-jsx",
+    "jsxImportSource": "preact"
+  },
+  "imports": {
+    "vite": "npm:vite@6.0.1",
+    "zod": "npm:zod@3.24.1",
+    "preact": "npm:preact@10.25.0",
+    "preact-render-to-string": "npm:preact-render-to-string@6.5.11",
+    "@preact/preset-vite": "npm:@preact/preset-vite@2.9.1",
+    "@types/node": "npm:@types/node@22.10.0",
+    "@deno/vite-plugin": "npm:@deno/vite-plugin@1.0.0",
+    "@trpc/server": "npm:@trpc/server@10.45.2",
+    "@trpc/client": "npm:@trpc/client@10.45.2",
+    "@std/http": "jsr:@std/http@1.0.12"
+  },
+  "nodeModulesDir": "auto"
+}
