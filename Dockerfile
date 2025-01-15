@@ -2,7 +2,7 @@ FROM denoland/deno:2.1.5 AS build
 
 WORKDIR /app
 
-COPY . /app/
+COPY . .
 
 ENV NODE_ENV=production
 
