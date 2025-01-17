@@ -1,6 +1,6 @@
 import "./App.css";
 
-import { useEffect, useState } from "preact/hooks";
+import { useEffect, useState } from "react";
 import { createTRPCProxyClient, httpBatchLink } from "@trpc/client";
 
 import type { AppRouter } from "./api/index.ts";

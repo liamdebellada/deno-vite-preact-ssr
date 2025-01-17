@@ -1,4 +1,4 @@
-import { hydrate } from "preact";
+import { hydrateRoot } from "react-dom/client";
 
 import App from "../App.tsx";
 
@@ -9,7 +9,7 @@ const readServerData = () =>
     (globalThis as GlobalThisWithServerState).serverState,
   );
 
-hydrate(
-  <App {...readServerData()} />,
+hydrateRoot(
   document.getElementById("root")!,
+  <App {...readServerData()} />,
 );

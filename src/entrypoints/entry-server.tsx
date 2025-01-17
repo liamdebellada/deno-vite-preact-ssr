@@ -1,4 +1,4 @@
-import { render as renderToString } from "preact-render-to-string";
+import { renderToString } from "react-dom/server";
 
 import App from "../App.tsx";
 

@@ -11,20 +11,18 @@
     "bare-node-builtins"
   ],
   "compilerOptions": {
-    "lib": [
-      "ES2020",
-      "DOM",
-      "DOM.Iterable"
-    ],
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
     "jsx": "react-jsx",
-    "jsxImportSource": "preact"
+    "jsxImportSource": "react"
   },
   "imports": {
     "vite": "npm:vite@6.0.1",
     "zod": "npm:zod@3.24.1",
-    "preact": "npm:preact@10.25.0",
-    "preact-render-to-string": "npm:preact-render-to-string@6.5.11",
-    "@preact/preset-vite": "npm:@preact/preset-vite@2.9.1",
+    "react": "https://esm.sh/react@18.2.0",
+    "react/jsx-runtime": "https://esm.sh/react@18.2.0/jsx-runtime",
+    "react-dom/server": "https://esm.sh/react-dom@18.2.0/server",
+    "react-dom/client": "https://esm.sh/react-dom@18.2.0/client",
+    "@vitejs/plugin-react": "npm:@vitejs/plugin-react@4.3.4",
     "@types/node": "npm:@types/node@22.10.0",
     "@deno/vite-plugin": "npm:@deno/vite-plugin@1.0.0",
     "@trpc/server": "npm:@trpc/server@10.45.2",

@@ -1,8 +1,7 @@
-import { createRequire } from "node:module";
 import { defineConfig, PluginOption } from "vite";
 
+import react from "@vitejs/plugin-react";
 import deno from "@deno/vite-plugin";
-import preact from "@preact/preset-vite";
 
 export default defineConfig({
   build: {
@@ -14,11 +13,6 @@ export default defineConfig({
   },
   plugins: [
     deno() as PluginOption,
-    preact({
-      prefreshEnabled: false,
-      babel: {
-        cwd: createRequire(import.meta.url).resolve("@preact/preset-vite"),
-      },
-    }) as PluginOption,
+    react(),
   ],
 });
