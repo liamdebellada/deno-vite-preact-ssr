@@ -36,10 +36,10 @@ const Reactive = () => {
 };
 
 function App(serverState: ServerState) {
-  const [response, setResponse] = useState<{ someData: string }>();
+  const [response, setResponse] = useState<string>();
 
   useEffect(() => {
-    client.hello.query().then(setResponse);
+    client.users.query().then((users) => setResponse(JSON.stringify(users)));
   }, []);
 
   return (
