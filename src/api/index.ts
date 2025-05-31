@@ -7,9 +7,11 @@ const publicProcedure = t.procedure;
 const router = t.router;
 
 export const appRouter = router({
-  hello: publicProcedure.input(z.string().nullish()).query(({ input }) =>
-    `hello from trpc: ${input ?? ""}`
-  ),
+  hello: publicProcedure.input(z.string().nullish()).query(() => {
+    return {
+      someData: "hi",
+    };
+  }),
 });
 
 export type AppRouter = typeof appRouter;

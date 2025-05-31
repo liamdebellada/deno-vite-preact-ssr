@@ -18,7 +18,7 @@ const Reactive = () => {
 
   return (
     <div>
-      <button onClick={() => setCount((count) => count + 1)}>
+      <button type="button" onClick={() => setCount((count) => count + 1)}>
         +1
       </button>
       <div>Count is: {count}</div>
@@ -27,7 +27,7 @@ const Reactive = () => {
 };
 
 function App({ url }: { url?: string }) {
-  const [response, setResponse] = useState("");
+  const [response, setResponse] = useState<{ someData: string }>();
 
   useEffect(() => {
     client.hello.query().then(setResponse);
@@ -39,7 +39,7 @@ function App({ url }: { url?: string }) {
         <h1>React + Deno SSR</h1>
         <img src="/react.svg" className="logo" alt="React logo" />
         <div>SSR url prop: {url}</div>
-        <div>TRPC client response: {response}</div>
+        <div>TRPC client response: {JSON.stringify(response)}</div>
         <Reactive />
       </div>
     </>
