@@ -2,6 +2,6 @@ export type ServerState = {
   url: string;
 };
 
-export const getServerState = async (request: Request) => ({
+export const getServerState = (request: Request) => ({
   url: request.url,
 } satisfies ServerState);
