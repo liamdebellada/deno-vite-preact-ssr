@@ -1,0 +1,11 @@
+name: gym
+
+services:
+  postgres:
+    image: postgres:17.2
+    restart: always
+    user: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_PASSWORD: example

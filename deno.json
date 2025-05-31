@@ -1,6 +1,6 @@
 {
   "tasks": {
-    "dev": "ENV=development deno run -A --node-modules-dir --watch src/index.ts",
+    "dev": "ENV=development deno run -A --node-modules-dir --env-file --watch src/index.ts",
     "start": "ENV=production deno run -A --node-modules-dir src/index.ts",
     "build": "deno task build:client && deno task build:server",
     "build:client": "deno run -A --node-modules-dir npm:vite build --outDir dist/client",
@@ -28,13 +28,16 @@
     "@trpc/client": "npm:@trpc/client@10.45.2",
     "@trpc/server": "npm:@trpc/server@10.45.2",
     "@types/node": "npm:@types/node@22.10.0",
+    "@types/pg": "npm:@types/pg@8.15.2",
     "@types/react": "npm:@types/react@19.0.0",
     "@types/react-dom": "npm:@types/react-dom@19.0.0",
     "@vitejs/plugin-react": "npm:@vitejs/plugin-react@4.3.4",
+    "kysely": "npm:kysely@^0.28.2",
+    "pg": "npm:pg@8.16.0",
     "react": "npm:react@19.0.0",
     "react-dom": "npm:react-dom@19.0.0",
     "vite": "npm:vite@6.0.1",
-    "zod": "npm:zod@3.24.1"
+    "zod": "npm:zod@3.25.42"
   },
   "nodeModulesDir": "auto"
 }
