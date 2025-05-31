@@ -48,7 +48,6 @@ export const handler = createSSRHandler({
     return { url: request.url } as const;
   },
   async getHtml(request, serverState) {
-    console.log("getting html", serverState);
     const { pathname } = new URL(request.url);
 
     const indexHTML = await Deno.readTextFile("./src/client/index.html");

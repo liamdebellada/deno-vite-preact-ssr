@@ -33,8 +33,6 @@ function App({ url }: { url?: string }) {
     client.hello.query().then(setResponse);
   }, []);
 
-  console.log("url prop", url);
-
   return (
     <>
       <div>

@@ -5,9 +5,7 @@ import { appRouter } from "./api/index.ts";
 import handler from "./handlers/index.ts";
 
 Deno.serve((request) => {
-  const { pathname } = new URL(request.url);
-
-  if (pathname.includes("/trpc")) {
+  if (new URLPattern({ pathname: "/trpc/*" }).exec(request.url)) {
     return trpcHandler({
       req: request,
       endpoint: "/trpc",
