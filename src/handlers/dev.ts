@@ -2,8 +2,9 @@ import { IncomingMessage, ServerResponse } from "node:http";
 import { Socket } from "node:net";
 import { ViteDevServer } from "vite";
 
-import { CreateHandler } from "./index.ts";
-import { renderHtmlTemplate } from "./render-html-template.ts";
+import { createSSRHandler } from "./create-ssr-handler.ts";
+
+type _Resolve = (value: Response) => void;
 
 const createViteServer = async () => {
   const { createServer } = await import("vite");
@@ -14,8 +15,6 @@ const createViteServer = async () => {
     base: "/",
   });
 };
-
-type _Resolve = (value: Response) => void;
 
 const createViteHandler = (viteServer: ViteDevServer) => (request: Request) =>
   new Promise<Response | void>((resolve) => {
@@ -41,8 +40,15 @@ const createViteHandler = (viteServer: ViteDevServer) => (request: Request) =>
     );
   });
 
-const createSSRHandler =
-  (viteServer: ViteDevServer) => async (request: Request) => {
+const viteServer = await createViteServer();
+const viteHandler = createViteHandler(viteServer);
+
+export const handler = createSSRHandler({
+  async getServerState(request) {
+    return { url: request.url } as const;
+  },
+  async getHtml(request, serverState) {
+    console.log("getting html", serverState);
     const { pathname } = new URL(request.url);
 
     const indexHTML = await Deno.readTextFile("./src/client/index.html");
@@ -55,31 +61,18 @@ const createSSRHandler =
       "/src/client/entrypoints/entry-server.tsx",
     );
 
-    const rendered = await render(pathname);
+    const rendered: { head?: string; html?: string } = await render(
+      serverState,
+    );
 
-    const html = renderHtmlTemplate(transformedIndexHTML, {
-      head: rendered.head,
-      html: rendered.html,
-      serverState: JSON.stringify({ url: pathname }),
-    });
+    const html = transformedIndexHTML
+      .replace(`<!--app-head-->`, rendered.head ?? "")
+      .replace(`<!--app-html-->`, rendered.html ?? "")
+      .replace(`<!--sever-state-->`, JSON.stringify(serverState));
 
-    return new Response(html, {
-      headers: {
-        "Content-Type": "text/html; charset=utf-8",
-      },
-    });
-  };
-
-export const createHandler: CreateHandler = async () => {
-  const viteServer = await createViteServer();
-
-  const viteHandler = createViteHandler(viteServer);
-  const SSRHandler = createSSRHandler(viteServer);
-
-  return async (request: Request) => {
-    const viteResponse = await viteHandler(request);
-    if (viteResponse) return viteResponse;
-
-    return await SSRHandler(request);
-  };
-};
+    return html;
+  },
+  async getStaticFile(request) {
+    return await viteHandler(request);
+  },
+});

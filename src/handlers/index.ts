@@ -1,2 +1,5 @@
-export type Handler = (request: Request) => Promise<Response>;
-export type CreateHandler = () => Promise<Handler> | Handler;
+const { handler } = Deno.env.get("ENV") === "development"
+  ? await import("./dev.ts")
+  : await import("./main.ts");
+
+export default handler;

@@ -1,32 +1,38 @@
 {
   "tasks": {
-    "dev": "NODE_ENV=development deno run -A --node-modules-dir --watch src/server/index.ts",
-    "start": "NODE_ENV=production deno run -A --node-modules-dir src/server/index.ts",
+    "dev": "ENV=development deno run -A --node-modules-dir --watch src/index.ts",
+    "start": "ENV=production deno run -A --node-modules-dir src/index.ts",
     "build": "deno task build:client && deno task build:server",
     "build:client": "deno run -A --node-modules-dir npm:vite build --outDir dist/client",
-    "build:server": "deno run -A --node-modules-dir npm:vite build --ssr src/entrypoints/entry-server.tsx --outDir dist/server",
+    "build:server": "deno run -A --node-modules-dir npm:vite build --ssr src/client/entrypoints/entry-server.tsx --outDir dist/server",
     "check": "deno fmt --check && deno lint && deno check ."
   },
   "unstable": [
     "bare-node-builtins"
   ],
   "compilerOptions": {
-    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "lib": [
+      "ES2020",
+      "DOM",
+      "DOM.Iterable",
+      "deno.ns"
+    ],
     "jsx": "react-jsx",
     "jsxImportSource": "react"
   },
   "imports": {
-    "vite": "npm:vite@6.0.1",
-    "zod": "npm:zod@3.24.1",
-    "react": "https://esm.sh/react@18.2.0",
-    "react/jsx-runtime": "https://esm.sh/react@18.2.0/jsx-runtime",
-    "react-dom/": "https://esm.sh/react-dom@18.2.0/",
-    "@vitejs/plugin-react": "npm:@vitejs/plugin-react@4.3.4",
-    "@types/node": "npm:@types/node@22.10.0",
-    "@deno/vite-plugin": "npm:@deno/vite-plugin@1.0.0",
-    "@trpc/server": "npm:@trpc/server@10.45.2",
+    "@deno/vite-plugin": "npm:@deno/vite-plugin@1.0.4",
+    "@std/http": "jsr:@std/http@1.0.12",
     "@trpc/client": "npm:@trpc/client@10.45.2",
-    "@std/http": "jsr:@std/http@1.0.12"
+    "@trpc/server": "npm:@trpc/server@10.45.2",
+    "@types/node": "npm:@types/node@22.10.0",
+    "@types/react": "npm:@types/react@19.0.0",
+    "@types/react-dom": "npm:@types/react-dom@19.0.0",
+    "@vitejs/plugin-react": "npm:@vitejs/plugin-react@4.3.4",
+    "react": "npm:react@19.0.0",
+    "react-dom": "npm:react-dom@19.0.0",
+    "vite": "npm:vite@6.0.1",
+    "zod": "npm:zod@3.24.1"
   },
   "nodeModulesDir": "auto"
 }

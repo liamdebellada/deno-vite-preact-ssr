@@ -1,14 +1,14 @@
-FROM denoland/deno:2.1.5 AS build
+FROM denoland/deno:2.3.5 AS build
 
 WORKDIR /app
 
 COPY . .
 
-ENV NODE_ENV=production
+ENV ENV=production
 
 RUN deno install
 RUN deno task build
-RUN deno compile -A --output ./server ./src/server/index.ts
+RUN deno compile -A --output ./server ./src/index.ts
 
 FROM gcr.io/distroless/cc:nonroot
 

@@ -3,7 +3,7 @@ import "./App.css";
 import { useEffect, useState } from "react";
 import { createTRPCProxyClient, httpBatchLink } from "@trpc/client";
 
-import type { AppRouter } from "./api/index.ts";
+import type { AppRouter } from "../api/index.ts";
 
 const client = createTRPCProxyClient<AppRouter>({
   links: [
@@ -32,6 +32,8 @@ function App({ url }: { url?: string }) {
   useEffect(() => {
     client.hello.query().then(setResponse);
   }, []);
+
+  console.log("url prop", url);
 
   return (
     <>
