@@ -1,9 +1,18 @@
-import "./App.css";
-
 import { useEffect, useState } from "react";
 import { createTRPCProxyClient, httpBatchLink } from "@trpc/client";
+import {
+  Avatar,
+  Button,
+  Code,
+  Flex,
+  Heading,
+  Spinner,
+  Text,
+  Theme,
+} from "@radix-ui/themes";
 
 import type { AppRouter } from "../api/index.ts";
+import type { ServerState } from "../api/server-state.ts";
 
 const client = createTRPCProxyClient<AppRouter>({
   links: [
@@ -17,16 +26,16 @@ const Reactive = () => {
   const [count, setCount] = useState(0);
 
   return (
-    <div>
-      <button type="button" onClick={() => setCount((count) => count + 1)}>
+    <Flex>
+      <Button onClick={() => setCount((count) => count + 1)}>
         +1
-      </button>
-      <div>Count is: {count}</div>
-    </div>
+      </Button>
+      <Text>Count is: {count}</Text>
+    </Flex>
   );
 };
 
-function App({ url }: { url?: string }) {
+function App(serverState: ServerState) {
   const [response, setResponse] = useState<{ someData: string }>();
 
   useEffect(() => {
@@ -34,15 +43,18 @@ function App({ url }: { url?: string }) {
   }, []);
 
   return (
-    <>
-      <div>
-        <h1>React + Deno SSR</h1>
-        <img src="/react.svg" className="logo" alt="React logo" />
-        <div>SSR url prop: {url}</div>
-        <div>TRPC client response: {JSON.stringify(response)}</div>
+    <Theme appearance="dark">
+      <Flex direction="column">
+        <Heading>React + Deno SSR</Heading>
+        <Avatar fallback="R" src="/react.svg" />
+        <Text>SSR url prop: {serverState.url}</Text>
+        <Flex>
+          <Text>TRPC client response:</Text>
+          {response ? <Code>{JSON.stringify(response)}</Code> : <Spinner />}
+        </Flex>
         <Reactive />
-      </div>
-    </>
+      </Flex>
+    </Theme>
   );
 }
 

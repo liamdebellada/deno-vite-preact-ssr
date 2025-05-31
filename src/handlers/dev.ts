@@ -44,9 +44,6 @@ const viteServer = await createViteServer();
 const viteHandler = createViteHandler(viteServer);
 
 export const handler = createSSRHandler({
-  async getServerState(request) {
-    return { url: request.url } as const;
-  },
   async getHtml(request, serverState) {
     const { pathname } = new URL(request.url);
 
@@ -58,9 +55,9 @@ export const handler = createSSRHandler({
 
     const { render } = await viteServer.ssrLoadModule(
       "/src/client/entrypoints/entry-server.tsx",
-    );
+    ) as typeof import("../client/entrypoints/entry-server.tsx");
 
-    const rendered: { head?: string; html?: string } = await render(
+    const rendered = await render(
       serverState,
     );
 

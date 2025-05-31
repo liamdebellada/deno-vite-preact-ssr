@@ -1,7 +1,8 @@
-export const createSSRHandler = <TState>(
-  { getHtml, getServerState, getStaticFile }: {
-    getServerState: (request: Request) => Promise<TState>;
-    getHtml: (request: Request, serverState: TState) => Promise<string>;
+import { getServerState, type ServerState } from "../api/server-state.ts";
+
+export const createSSRHandler = (
+  { getHtml, getStaticFile }: {
+    getHtml: (request: Request, serverState: ServerState) => Promise<string>;
     getStaticFile: (
       request: Request,
     ) => Promise<Response | void>;

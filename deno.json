@@ -22,6 +22,7 @@
   },
   "imports": {
     "@deno/vite-plugin": "npm:@deno/vite-plugin@1.0.4",
+    "@radix-ui/themes": "npm:@radix-ui/themes@3.2.1",
     "@std/http": "jsr:@std/http@1.0.12",
     "@trpc/client": "npm:@trpc/client@10.45.2",
     "@trpc/server": "npm:@trpc/server@10.45.2",
