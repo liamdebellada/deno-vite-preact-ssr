@@ -17,7 +17,7 @@ import type { ServerState } from "../api/server-state.ts";
 const client = createTRPCProxyClient<AppRouter>({
   links: [
     httpBatchLink({
-      url: "http://localhost:8000/trpc",
+      url: "/trpc",
     }),
   ],
 });
