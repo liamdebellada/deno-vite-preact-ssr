@@ -20,6 +20,7 @@
     "jsx": "react-jsx",
     "jsxImportSource": "react"
   },
+  "exclude": [".vite", "dist"],
   "imports": {
     "@deno/vite-plugin": "npm:@deno/vite-plugin@1.0.4",
     "@radix-ui/themes": "npm:@radix-ui/themes@3.2.1",
