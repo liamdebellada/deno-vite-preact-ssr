@@ -2,6 +2,9 @@ import { IncomingMessage, ServerResponse } from "node:http";
 import { Socket } from "node:net";
 import { ViteDevServer } from "vite";
 
+import { CreateHandler } from "./index.ts";
+import { renderHtmlTemplate } from "./render-html-template.ts";
+
 const createViteServer = async () => {
   const { createServer } = await import("vite");
 
@@ -42,22 +45,23 @@ const createSSRHandler =
   (viteServer: ViteDevServer) => async (request: Request) => {
     const { pathname } = new URL(request.url);
 
-    const indexHTML = await Deno.readTextFile("./src/index.html");
+    const indexHTML = await Deno.readTextFile("./src/client/index.html");
     const transformedIndexHTML = await viteServer.transformIndexHtml(
       pathname,
       indexHTML,
     );
 
     const { render } = await viteServer.ssrLoadModule(
-      "/src/entrypoints/entry-server.tsx",
+      "/src/client/entrypoints/entry-server.tsx",
     );
 
     const rendered = await render(pathname);
 
-    const html = transformedIndexHTML
-      .replace(`<!--app-head-->`, rendered.head ?? "")
-      .replace(`<!--app-html-->`, rendered.html ?? "")
-      .replace(`<!--sever-state-->`, JSON.stringify({ url: pathname }));
+    const html = renderHtmlTemplate(transformedIndexHTML, {
+      head: rendered.head,
+      html: rendered.html,
+      serverState: JSON.stringify({ url: pathname }),
+    });
 
     return new Response(html, {
       headers: {
@@ -66,7 +70,7 @@ const createSSRHandler =
     });
   };
 
-export const createHandler = async () => {
+export const createHandler: CreateHandler = async () => {
   const viteServer = await createViteServer();
 
   const viteHandler = createViteHandler(viteServer);

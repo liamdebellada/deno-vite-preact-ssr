@@ -1,18 +1,24 @@
 import { serveDir } from "@std/http/file-server";
 
+import { CreateHandler } from "./index.ts";
+import { renderHtmlTemplate } from "./render-html-template.ts";
+
 const SSRHandler = async (request: Request) => {
   const { pathname } = new URL(request.url);
 
-  const templateHtml = await Deno.readTextFile("./dist/client/src/index.html");
+  const templateHtml = await Deno.readTextFile(
+    "./dist/client/src/client/index.html",
+  );
 
-  const { render } = await import("../../dist/server/entry-server.mjs");
+  const { render } = await import("../../../dist/server/entry-server.mjs");
 
   const rendered: { head?: string; html?: string } = await render(pathname);
 
-  const html = templateHtml
-    .replace(`<!--app-head-->`, rendered.head ?? "")
-    .replace(`<!--app-html-->`, rendered.html ?? "")
-    .replace(`<!--sever-state-->`, JSON.stringify({ url: pathname }));
+  const html = renderHtmlTemplate(templateHtml, {
+    head: rendered.head ?? "",
+    html: rendered.html ?? "",
+    serverState: JSON.stringify({ url: pathname }),
+  });
 
   return new Response(html, {
     headers: {
@@ -21,7 +27,7 @@ const SSRHandler = async (request: Request) => {
   });
 };
 
-export const createHandler = () => async (request: Request) => {
+export const createHandler: CreateHandler = () => async (request: Request) => {
   const response = await serveDir(request, {
     fsRoot: "./dist/client",
     showIndex: false,

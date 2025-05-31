@@ -1,20 +1,18 @@
-/// <reference lib="deno.ns" />
-/// <reference types="npm:@types/node" />
-/// <reference types="npm:@types/react" />
-
 import { fetchRequestHandler } from "@trpc/server/adapters/fetch";
 
 import { appRouter } from "../api/index.ts";
 
-import * as devServer from "./dev.ts";
-import * as mainServer from "./main.ts";
+import * as devServer from "./handlers/dev.ts";
+import * as mainServer from "./handlers/main.ts";
 
-let handler: (request: Request) => Promise<Response>;
+import { Handler } from "./handlers/index.ts";
+
+let handler: Handler;
 
 if (Deno.env.get("NODE_ENV") === "development") {
   handler = await devServer.createHandler();
 } else {
-  handler = mainServer.createHandler();
+  handler = await mainServer.createHandler();
 }
 
 Deno.serve((request) => {
