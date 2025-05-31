@@ -10,10 +10,10 @@ const dialect = new PostgresDialect({
   }),
 });
 
-type Database = {
+export type Database = {
   users: {
     id: number;
-    name: string;
+    username: string;
   };
 };
 export const db = new Kysely<Database>({ dialect });
