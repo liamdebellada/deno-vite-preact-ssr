@@ -5,6 +5,7 @@
     "build": "deno task build:client && deno task build:server",
     "build:client": "deno run -A --node-modules-dir npm:vite build --outDir dist/client",
     "build:server": "deno run -A --node-modules-dir npm:vite build --ssr src/client/entrypoints/entry-server.tsx --outDir dist/server",
+    "migrate": "deno run -A --env-file src/db/migrate.ts",
     "check": "deno fmt --check && deno lint && deno check ."
   },
   "unstable": [
