@@ -8,8 +8,10 @@ const templateHtml = await Deno.readTextFile(
 
 export const handler = createSSRHandler({
   async getHtml(_request, serverState) {
-    const { render }: typeof import("../client/entrypoints/entry-server.tsx") =
-      await import("../../dist/server/entry-server.mjs");
+    const { render }:
+      typeof import("../../client/entrypoints/entry-server.tsx") = await import(
+        "../../../dist/server/entry-server.mjs"
+      );
 
     const rendered: { head?: string; html?: string } = await render(
       serverState,

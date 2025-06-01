@@ -8,7 +8,7 @@ ENV ENV=production
 
 RUN deno install
 RUN deno task build
-RUN deno compile -A --output ./server ./src/index.ts
+RUN deno compile -A --output ./server ./src/server/index.ts
 
 FROM gcr.io/distroless/cc:nonroot
 

@@ -1,8 +1,6 @@
-import { useEffect, useState } from "react";
-import { createTRPCProxyClient, httpBatchLink } from "@trpc/client";
 import {
   Avatar,
-  Button,
+  Box,
   Code,
   Flex,
   Heading,
@@ -10,51 +8,42 @@ import {
   Text,
   Theme,
 } from "@radix-ui/themes";
+import { QueryClientProvider } from "@tanstack/react-query";
 
-import type { AppRouter } from "../api/index.ts";
-import type { ServerState } from "../api/server-state.ts";
+import type { ServerState } from "../server/server-state/server-state.ts";
+import { queryClient, trpc } from "./utils/trpc.ts";
+import { useQuery } from "query";
 
-const client = createTRPCProxyClient<AppRouter>({
-  links: [
-    httpBatchLink({
-      url: "/trpc",
-    }),
-  ],
-});
+const SomeComponent = () => {
+  const { data, error, isPending } = useQuery(
+    trpc.users.queryOptions(),
+  );
 
-const Reactive = () => {
-  const [count, setCount] = useState(0);
+  if (isPending) return <Spinner />;
+
+  if (error) return <Text color="crimson">{error.message}</Text>;
 
   return (
-    <Flex>
-      <Button onClick={() => setCount((count) => count + 1)}>
-        +1
-      </Button>
-      <Text>Count is: {count}</Text>
-    </Flex>
+    <Box>
+      <Code>
+        {JSON.stringify(data)}
+      </Code>
+    </Box>
   );
 };
 
 function App(serverState: ServerState) {
-  const [response, setResponse] = useState<string>();
-
-  useEffect(() => {
-    client.users.query().then((users) => setResponse(JSON.stringify(users)));
-  }, []);
-
   return (
-    <Theme appearance="dark">
-      <Flex direction="column">
-        <Heading>React + Deno SSR</Heading>
-        <Avatar fallback="R" src="/react.svg" />
-        <Text>SSR url prop: {serverState.url}</Text>
-        <Flex>
-          <Text>TRPC client response:</Text>
-          {response ? <Code>{JSON.stringify(response)}</Code> : <Spinner />}
+    <QueryClientProvider client={queryClient}>
+      <Theme appearance="dark">
+        <Flex direction="column">
+          <Heading>React + Deno SSR</Heading>
+          <Avatar fallback="R" src="/react.svg" />
+          <Text>SSR url prop: {serverState.url}</Text>
+          <SomeComponent />
         </Flex>
-        <Reactive />
-      </Flex>
-    </Theme>
+      </Theme>
+    </QueryClientProvider>
   );
 }
 

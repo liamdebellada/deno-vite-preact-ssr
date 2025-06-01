@@ -1,7 +1,7 @@
 {
   "tasks": {
-    "dev": "ENV=development deno run -A --node-modules-dir --env-file --watch src/index.ts",
-    "start": "ENV=production deno run -A --node-modules-dir --env-file src/index.ts",
+    "dev": "ENV=development deno run -A --node-modules-dir --env-file --watch src/server/index.ts",
+    "start": "ENV=production deno run -A --node-modules-dir --env-file src/server/index.ts",
     "build": "deno task build:client && deno task build:server",
     "build:client": "deno run -A --node-modules-dir npm:vite build --outDir dist/client",
     "build:server": "deno run -A --node-modules-dir npm:vite build --ssr src/client/entrypoints/entry-server.tsx --outDir dist/server",
@@ -18,26 +18,30 @@
       "deno.ns"
     ],
     "jsx": "react-jsx",
-    "jsxImportSource": "react"
+    "jsxImportSource": "react",
+    "strict": true
   },
   "exclude": [".vite", "dist"],
   "imports": {
     "@deno/vite-plugin": "npm:@deno/vite-plugin@1.0.4",
     "@radix-ui/themes": "npm:@radix-ui/themes@3.2.1",
     "@std/http": "jsr:@std/http@1.0.12",
-    "@trpc/client": "npm:@trpc/client@10.45.2",
-    "@trpc/server": "npm:@trpc/server@10.45.2",
+    "@tanstack/react-query": "npm:@tanstack/react-query@5.62.8",
+    "@trpc/client": "npm:@trpc/client@11.1.4",
+    "@trpc/server": "npm:@trpc/server@11.1.4",
+    "@trpc/tanstack-react-query": "npm:@trpc/tanstack-react-query@11.1.4",
     "@types/node": "npm:@types/node@22.10.0",
     "@types/pg": "npm:@types/pg@8.15.2",
     "@types/react": "npm:@types/react@19.0.0",
     "@types/react-dom": "npm:@types/react-dom@19.0.0",
     "@vitejs/plugin-react": "npm:@vitejs/plugin-react@4.3.4",
-    "kysely": "npm:kysely@^0.28.2",
+    "kysely": "npm:kysely@0.28.2",
     "pg": "npm:pg@8.16.0",
     "react": "npm:react@19.0.0",
     "react-dom": "npm:react-dom@19.0.0",
-    "vite": "npm:vite@6.0.1",
-    "zod": "npm:zod@3.25.42"
+    "vite": "npm:vite@6.3.5",
+    "zod": "npm:zod@3.25.42",
+    "query": "./src/client/utils/query.ts"
   },
   "nodeModulesDir": "auto"
 }

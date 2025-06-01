@@ -55,7 +55,7 @@ export const handler = createSSRHandler({
 
     const { render } = await viteServer.ssrLoadModule(
       "/src/client/entrypoints/entry-server.tsx",
-    ) as typeof import("../client/entrypoints/entry-server.tsx");
+    ) as typeof import("../../client/entrypoints/entry-server.tsx");
 
     const rendered = await render(
       serverState,

@@ -1,4 +1,7 @@
-import { getServerState, type ServerState } from "../api/server-state.ts";
+import {
+  getServerState,
+  type ServerState,
+} from "../server-state/server-state.ts";
 
 export const createSSRHandler = (
   { getHtml, getStaticFile }: {
