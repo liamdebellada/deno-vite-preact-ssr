@@ -1,70 +1,21 @@
-import {
-  Avatar,
-  Box,
-  Code,
-  Flex,
-  Heading,
-  Spinner,
-  Text,
-  Theme,
-} from "@radix-ui/themes";
-
-import { hc } from "hono/client";
-import {
-  QueryClient,
-  QueryClientProvider,
-  useQuery,
-} from "@tanstack/react-query";
-
 import { Route, Routes } from "react-router";
-
-import type { AppType } from "../server/index.ts";
+import { Theme } from "@radix-ui/themes";
 import type { ServerState } from "../server/server-state/server-state.ts";
 
-const queryClient = new QueryClient();
-const honoClient = hc<AppType>("/");
+import { QueryClientProvider } from "./utils/query-client.tsx";
 
-const SomeComponent = () => {
-  const { data, isPending, error } = useQuery({
-    queryKey: ["users"],
-    queryFn: async () => {
-      const response = await honoClient.users.$get();
-      return await response.json();
-    },
-  });
-
-  if (isPending) return <Spinner />;
-  if (error) return <Text color="crimson">{error.message}</Text>;
-
-  return (
-    <Box>
-      <Code>{JSON.stringify(data)}</Code>
-    </Box>
-  );
-};
-
-const Page = () => (
-  <Flex direction="column">
-    <Heading>React + Deno SSR</Heading>
-    <Avatar size="6" fallback="R" src="/react.svg" />
-    <SomeComponent />
-  </Flex>
-);
-
-const Page2 = () => (
-  <Flex direction="column">
-    <Heading>Another page</Heading>
-  </Flex>
-);
+import Index from "./routes/index.tsx";
+import { ServerStateProvider } from "./providers/server-state/provider.tsx";
 
 function App(serverState: ServerState) {
   return (
-    <QueryClientProvider client={queryClient}>
+    <QueryClientProvider>
       <Theme appearance="dark">
-        <Routes>
-          <Route path="/" element={<Page />} />
-          <Route path="/another-page" element={<Page2 />} />
-        </Routes>
+        <ServerStateProvider serverState={serverState}>
+          <Routes>
+            <Route path="/" element={<Index />} />
+          </Routes>
+        </ServerStateProvider>
       </Theme>
     </QueryClientProvider>
   );

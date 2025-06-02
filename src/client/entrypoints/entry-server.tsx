@@ -3,7 +3,7 @@ import { StaticRouter } from "react-router";
 
 import type { ServerState } from "../../server/server-state/server-state.ts";
 
-import App from "../App.tsx";
+import App from "../app.tsx";
 
 export function render(serverState: ServerState) {
   return renderToString(
