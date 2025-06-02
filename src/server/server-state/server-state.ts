@@ -1,7 +1,9 @@
+import { Context } from "hono";
+
 export type ServerState = {
   url: string;
 };
 
-export const getServerState = (request: Request) => ({
-  url: request.url,
+export const getServerState = (c: Context) => ({
+  url: c.req.url,
 } satisfies ServerState);

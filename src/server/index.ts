@@ -1,19 +1,18 @@
-import { db } from "../db/index.ts";
-import handler from "./handlers/index.ts";
-
 import { Hono } from "hono";
+
+import { handler, serveStatic } from "./ssr/index.ts";
 
 const app = new Hono();
 
-const route = app.get("/users", async (c) => {
-  const users = await db.selectFrom("users").selectAll().execute();
-
-  return c.json(users);
+const route = app.get("/users", (c) => {
+  return c.json([]);
 });
 
-app.get("*", async (c) => {
-  return await handler(c.req.raw);
-});
+app.get(
+  "*",
+  serveStatic,
+  handler,
+);
 
 Deno.serve(app.fetch);
 

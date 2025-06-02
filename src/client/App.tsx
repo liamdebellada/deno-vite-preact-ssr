@@ -47,7 +47,7 @@ function App(serverState: ServerState) {
       <Theme appearance="dark">
         <Flex direction="column">
           <Heading>React + Deno SSR</Heading>
-          <Avatar fallback="R" src="/react.svg" />
+          <Avatar size="6" fallback="R" src="/react.svg" />
           <Text>SSR url prop: {serverState.url}</Text>
           <SomeComponent />
         </Flex>
