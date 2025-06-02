@@ -2,11 +2,11 @@ import { Hono } from "hono";
 
 import { handler, serveStatic } from "./ssr/index.ts";
 
+import * as usersController from "./api/users/users.controller.ts";
+
 const app = new Hono();
 
-const route = app.get("/users", (c) => {
-  return c.json([]);
-});
+const route = app.get("/users", usersController.getUsers);
 
 app.get(
   "*",
