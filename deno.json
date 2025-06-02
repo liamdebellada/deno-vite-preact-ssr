@@ -28,21 +28,18 @@
     "@radix-ui/themes": "npm:@radix-ui/themes@3.2.1",
     "@std/http": "jsr:@std/http@1.0.12",
     "@tanstack/react-query": "npm:@tanstack/react-query@5.62.8",
-    "@trpc/client": "npm:@trpc/client@11.1.4",
-    "@trpc/server": "npm:@trpc/server@11.1.4",
-    "@trpc/tanstack-react-query": "npm:@trpc/tanstack-react-query@11.1.4",
     "@types/node": "npm:@types/node@22.10.0",
     "@types/pg": "npm:@types/pg@8.15.2",
     "@types/react": "npm:@types/react@19.0.0",
     "@types/react-dom": "npm:@types/react-dom@19.0.0",
     "@vitejs/plugin-react": "npm:@vitejs/plugin-react@4.3.4",
+    "hono": "npm:hono@^4.7.11",
     "kysely": "npm:kysely@0.28.2",
     "pg": "npm:pg@8.16.0",
     "react": "npm:react@19.0.0",
     "react-dom": "npm:react-dom@19.0.0",
     "vite": "npm:vite@6.3.5",
-    "zod": "npm:zod@3.25.42",
-    "query": "./src/client/utils/query.ts"
+    "zod": "npm:zod@3.25.42"
   },
   "nodeModulesDir": "auto"
 }

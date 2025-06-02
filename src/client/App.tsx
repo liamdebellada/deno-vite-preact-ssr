@@ -8,26 +8,35 @@ import {
   Text,
   Theme,
 } from "@radix-ui/themes";
-import { QueryClientProvider } from "@tanstack/react-query";
 
+import { hc } from "hono/client";
+import {
+  QueryClient,
+  QueryClientProvider,
+  useQuery,
+} from "@tanstack/react-query";
+
+import type { AppType } from "../server/index.ts";
 import type { ServerState } from "../server/server-state/server-state.ts";
-import { queryClient, trpc } from "./utils/trpc.ts";
-import { useQuery } from "query";
+
+const queryClient = new QueryClient();
+const honoClient = hc<AppType>("/");
 
 const SomeComponent = () => {
-  const { data, error, isPending } = useQuery(
-    trpc.users.queryOptions(),
-  );
+  const { data, isPending, error } = useQuery({
+    queryKey: ["users"],
+    queryFn: async () => {
+      const response = await honoClient.users.$get();
+      return await response.json();
+    },
+  });
 
   if (isPending) return <Spinner />;
-
   if (error) return <Text color="crimson">{error.message}</Text>;
 
   return (
     <Box>
-      <Code>
-        {JSON.stringify(data)}
-      </Code>
+      <Code>{JSON.stringify(data)}</Code>
     </Box>
   );
 };

@@ -1,18 +1,20 @@
-import { fetchRequestHandler as trpcHandler } from "@trpc/server/adapters/fetch";
-
-import { appRouter } from "./api/index.ts";
-
+import { db } from "../db/index.ts";
 import handler from "./handlers/index.ts";
 
-Deno.serve(async (request) => {
-  if (new URLPattern({ pathname: "/trpc/*" }).exec(request.url)) {
-    return await trpcHandler({
-      req: request,
-      endpoint: "/trpc",
-      router: appRouter,
-      createContext: () => ({}),
-    });
-  }
+import { Hono } from "hono";
 
-  return await handler(request);
+const app = new Hono();
+
+const route = app.get("/users", async (c) => {
+  const users = await db.selectFrom("users").selectAll().execute();
+
+  return c.json(users);
 });
+
+app.get("*", async (c) => {
+  return await handler(c.req.raw);
+});
+
+Deno.serve(app.fetch);
+
+export type AppType = typeof route;
