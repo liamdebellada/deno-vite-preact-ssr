@@ -14,7 +14,7 @@ FROM gcr.io/distroless/cc:nonroot
 
 WORKDIR /app
 
-COPY --from=build /app/dist/client/ /app/dist/client/
+COPY --from=build /app/dist /app/dist
 COPY --from=build /app/server /app/server
 
 EXPOSE 8000
