@@ -13,6 +13,7 @@
     "npm:kysely@0.28.2": "0.28.2",
     "npm:pg@8.16.0": "8.16.0",
     "npm:react-dom@19.0.0": "19.0.0_react@19.0.0",
+    "npm:react-router@7.6.1": "7.6.1_react@19.0.0_react-dom@19.0.0__react@19.0.0",
     "npm:react@19.0.0": "19.0.0",
     "npm:vite@6.3.5": "6.3.5_@types+node@22.10.0_picomatch@4.0.2",
     "npm:zod@3.25.42": "3.25.42"
@@ -1582,6 +1583,9 @@
     "convert-source-map@2.0.0": {
       "integrity": "sha512-Kvp459HrV2FEJ1CAsi1Ku+MY3kasH19TFykTz2xWmMeq6bk2NU3XXvfJ+Q61m0xktWwt+1HSYf3JZsTms3aRJg=="
     },
+    "cookie@1.0.2": {
+      "integrity": "sha512-9Kr/j4O16ISv8zBBhJoi4bXOYNTkFLOqSL3UDB0njXxCXNezjeyVrJyGOWtgfs/q2km1gwBcfH8q1yEGoMYunA=="
+    },
     "csstype@3.1.3": {
       "integrity": "sha512-M1uQkMl8rQK/szD0LNhtqxIPLpimGm8sOBwU7lLnCpSbTyY3yeU1Vc7l4KT5zT4s/yOxHH5O7tIuuLOCnLADRw=="
     },
@@ -1905,6 +1909,18 @@
         "@types/react"
       ]
     },
+    "react-router@7.6.1_react@19.0.0_react-dom@19.0.0__react@19.0.0": {
+      "integrity": "sha512-hPJXXxHJZEsPFNVbtATH7+MMX43UDeOauz+EAU4cgqTn7ojdI9qQORqS8Z0qmDlL1TclO/6jLRYUEtbWidtdHQ==",
+      "dependencies": [
+        "cookie",
+        "react",
+        "react-dom",
+        "set-cookie-parser"
+      ],
+      "optionalPeers": [
+        "react-dom"
+      ]
+    },
     "react-style-singleton@2.2.3_@types+react@19.0.0_react@19.0.0": {
       "integrity": "sha512-b6jSvxvVnyptAiLjbkWLE/lOnR4lfTtDAl+eUC7RZy+QQWc6wRzIV2CE6xBuMmDxc2qIihtDCZD5NPOFl7fRBQ==",
       "dependencies": [
@@ -1956,6 +1972,9 @@
     "semver@6.3.1": {
       "integrity": "sha512-BR7VvDCVHO+q2xBEWskxS6DJE1qRnb7DxzUrogb71CWoSficBxYsiAGd+Kl0mmq/MprG9yArRkyrQxTO6XjMzA==",
       "bin": true
+    },
+    "set-cookie-parser@2.7.1": {
+      "integrity": "sha512-IOc8uWeOZgnb3ptbCURJWNjWUPcO3ZnTTdzsurqERrP6nPyv+paC55vJM0LpOlT2ne+Ix+9+CRG1MNLlyZ4GjQ=="
     },
     "source-map-js@1.2.1": {
       "integrity": "sha512-UXWMKhLOwVKb728IUtQPXxfYU+usdybtUrK/8uGE8CQMvrhOpwvzDBwj0QhSL7MQc7vIsISBG8VQ8+IDQxpfQA=="
@@ -2057,6 +2076,7 @@
       "npm:kysely@0.28.2",
       "npm:pg@8.16.0",
       "npm:react-dom@19.0.0",
+      "npm:react-router@7.6.1",
       "npm:react@19.0.0",
       "npm:vite@6.3.5",
       "npm:zod@3.25.42"

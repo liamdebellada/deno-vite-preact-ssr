@@ -1,4 +1,5 @@
 import { hydrateRoot } from "react-dom/client";
+import { BrowserRouter } from "react-router";
 
 import App from "../App.tsx";
 
@@ -11,5 +12,7 @@ const readServerData = () =>
 
 hydrateRoot(
   document.getElementById("root")!,
-  <App {...readServerData()} />,
+  <BrowserRouter>
+    <App {...readServerData()} />
+  </BrowserRouter>,
 );

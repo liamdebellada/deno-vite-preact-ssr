@@ -16,6 +16,8 @@ import {
   useQuery,
 } from "@tanstack/react-query";
 
+import { Route, Routes } from "react-router";
+
 import type { AppType } from "../server/index.ts";
 import type { ServerState } from "../server/server-state/server-state.ts";
 
@@ -41,16 +43,28 @@ const SomeComponent = () => {
   );
 };
 
+const Page = () => (
+  <Flex direction="column">
+    <Heading>React + Deno SSR</Heading>
+    <Avatar size="6" fallback="R" src="/react.svg" />
+    <SomeComponent />
+  </Flex>
+);
+
+const Page2 = () => (
+  <Flex direction="column">
+    <Heading>Another page</Heading>
+  </Flex>
+);
+
 function App(serverState: ServerState) {
   return (
     <QueryClientProvider client={queryClient}>
       <Theme appearance="dark">
-        <Flex direction="column">
-          <Heading>React + Deno SSR</Heading>
-          <Avatar size="6" fallback="R" src="/react.svg" />
-          <Text>SSR url prop: {serverState.url}</Text>
-          <SomeComponent />
-        </Flex>
+        <Routes>
+          <Route path="/" element={<Page />} />
+          <Route path="/another-page" element={<Page2 />} />
+        </Routes>
       </Theme>
     </QueryClientProvider>
   );
