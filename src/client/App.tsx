@@ -1,19 +1,35 @@
-import { Route, Routes } from "react-router";
+import { Outlet, Route, Routes } from "react-router";
 import { Theme } from "@radix-ui/themes";
+
 import type { ServerState } from "../server/server-state/server-state.ts";
 
+import { ServerStateProvider } from "./providers/server-state/provider.tsx";
 import { QueryClientProvider } from "./utils/query-client.tsx";
 
 import Index from "./routes/index.tsx";
-import { ServerStateProvider } from "./providers/server-state/provider.tsx";
 
-function App(serverState: ServerState) {
+const Layout = (
+  { onRouteRendered }: { onRouteRendered: () => void },
+) => {
+  onRouteRendered();
+
+  return <Outlet />;
+};
+
+function App(
+  { serverState, onRouteRendered = () => {} }: {
+    serverState: ServerState;
+    onRouteRendered?: () => void;
+  },
+) {
   return (
     <QueryClientProvider>
       <Theme appearance="dark">
         <ServerStateProvider serverState={serverState}>
           <Routes>
-            <Route path="/" element={<Index />} />
+            <Route element={<Layout onRouteRendered={onRouteRendered} />}>
+              <Route path="/" element={<Index />} />
+            </Route>
           </Routes>
         </ServerStateProvider>
       </Theme>

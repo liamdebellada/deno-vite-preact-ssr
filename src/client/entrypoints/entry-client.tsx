@@ -13,6 +13,6 @@ const readServerData = () =>
 hydrateRoot(
   document.getElementById("root")!,
   <BrowserRouter>
-    <App {...readServerData()} />
+    <App serverState={readServerData()} />
   </BrowserRouter>,
 );

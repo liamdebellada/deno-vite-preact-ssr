@@ -3,13 +3,13 @@ import { useQuery } from "@tanstack/react-query";
 
 import { useServerState } from "../providers/server-state/provider.tsx";
 
-import { honoClient } from "../utils/hono-client.ts";
+import { apiClient } from "../utils/api-client.ts";
 
 const Users = () => {
   const { data, isPending, error } = useQuery({
     queryKey: ["users"],
     queryFn: async () => {
-      const response = await honoClient.users.$get();
+      const response = await apiClient.users.$get();
       return await response.json();
     },
   });

@@ -5,10 +5,20 @@ import type { ServerState } from "../../server/server-state/server-state.ts";
 
 import App from "../app.tsx";
 
-export function render(serverState: ServerState) {
-  return renderToString(
+export type ServerRenderResult = {
+  html: string;
+  routeRendered: boolean;
+};
+
+export function render(serverState: ServerState): ServerRenderResult {
+  let routeRendered = false;
+  const onRouteRendered = () => routeRendered = true;
+
+  const html = renderToString(
     <StaticRouter location={new URL(serverState.url).pathname}>
-      <App {...serverState} />
+      <App serverState={serverState} onRouteRendered={onRouteRendered} />
     </StaticRouter>,
   );
+
+  return { html, routeRendered };
 }
