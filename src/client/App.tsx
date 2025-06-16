@@ -11,7 +11,7 @@ import Index from "./routes/index.tsx";
 const Layout = (
   { onRouteRendered }: { onRouteRendered: () => void },
 ) => {
-  onRouteRendered();
+  if (!globalThis.window) onRouteRendered();
 
   return <Outlet />;
 };

@@ -4,6 +4,6 @@ export type ServerState = {
   url: string;
 };
 
-export const getServerState = (c: Context) => ({
+export const getServerState = (c: Context): ServerState => ({
   url: c.req.url,
-} satisfies ServerState);
+});

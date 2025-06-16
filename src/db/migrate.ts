@@ -6,8 +6,14 @@ import {
   Migrator,
   PostgresDialect,
 } from "kysely";
+
 import type { Database } from "./index.ts";
 import env from "../env.ts";
+import z from "zod";
+
+const direction = z.union([z.literal("up"), z.literal("down")]).parse(
+  Deno.args[0],
+);
 
 const readdir = async (path: string) => {
   const dir = await Array.fromAsync(Deno.readDir(path));
@@ -32,7 +38,8 @@ const migrator = new Migrator({
   }),
 });
 
-const { error, results } = await migrator.migrateToLatest();
+const { error, results } = await migrator
+  [direction === "up" ? "migrateToLatest" : "migrateDown" as const]();
 
 results?.forEach((it) => {
   if (it.status === "Success") {
