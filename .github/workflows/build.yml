@@ -19,6 +19,9 @@ jobs:
         with:
           deno-version: "2.3.6"
 
+      - name: install
+        run: deno install
+
       - name: check
         run: deno task check
 
