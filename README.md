@@ -8,6 +8,7 @@ A minimal fullstack application running on Deno.
 - Kysely
 - React
 - React Router
+- Radix Themes
 - Vite (for local development)
 
 ---
