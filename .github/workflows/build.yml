@@ -1,0 +1,26 @@
+name: Check and build
+
+on:
+  push:
+    branches: ["main"]
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Setup repo
+        uses: actions/checkout@v4
+
+      - uses: denoland/setup-deno@v2
+        with:
+          deno-version: "2.3.6"
+
+      - name: check
+        run: deno task check
+
+      - name: build
+        run: deno task build
