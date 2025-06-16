@@ -1,6 +1,6 @@
 # Deno Fullstack
 
-A minimal fullstack application running on Deno.
+A fullstack application running on Deno.
 
 **Stack:**
 
