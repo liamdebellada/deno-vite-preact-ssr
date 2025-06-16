@@ -1,12 +1,29 @@
-# deno-vite-preact-ssr
+# Deno Fullstack
 
-A Deno, Preact and Vite SSR project.
+A minimal fullstack application running on Deno.
 
-## Local development
+**Stack:**
+
+- Hono
+- Kysely
+- React
+- React Router
+- Vite (for local development)
+
+---
+
+## 🚀 Running Locally
 
 1. `deno i`
-2. `deno task dev`
+2. `docker compose up -d`
+3. `deno task dev`
 
-## Building
+---
 
-- `deno task build` **or** `docker build -t deno-vite-preact-ssr .`
+## 🛠️ Building
+
+- `deno task build`
+
+Or with Docker:
+
+- `docker build -t deno-fullstack .`
