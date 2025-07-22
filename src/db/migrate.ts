@@ -1,5 +1,6 @@
 import * as path from "node:path";
 import { Pool } from "pg";
+import z from "zod";
 import {
   FileMigrationProvider,
   Kysely,
@@ -9,7 +10,6 @@ import {
 
 import type { Database } from "./index.ts";
 import env from "../env.ts";
-import z from "zod";
 
 const direction = z.union([z.literal("up"), z.literal("down")]).parse(
   Deno.args[0],

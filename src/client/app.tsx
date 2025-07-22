@@ -28,7 +28,7 @@ function App(
         <ServerStateProvider serverState={serverState}>
           <Routes>
             <Route element={<Layout onRouteRendered={onRouteRendered} />}>
-              <Route path="/" element={<Index />} />
+              <Route index element={<Index />} />
             </Route>
           </Routes>
         </ServerStateProvider>
