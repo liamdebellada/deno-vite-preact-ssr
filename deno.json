@@ -31,6 +31,7 @@
     "@vitejs/plugin-react": "npm:@vitejs/plugin-react@4.3.4",
     "hono": "npm:hono@^4.7.11",
     "kysely": "npm:kysely@0.28.2",
+    "neverthrow": "npm:neverthrow@^8.2.0",
     "pg": "npm:pg@8.16.0",
     "react": "npm:react@19.0.0",
     "react-dom": "npm:react-dom@19.0.0",

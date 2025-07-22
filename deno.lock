@@ -11,6 +11,7 @@
     "npm:@vitejs/plugin-react@4.3.4": "4.3.4_vite@6.3.5__@types+node@22.10.0__picomatch@4.0.2_@babel+core@7.27.4_@types+node@22.10.0",
     "npm:hono@^4.7.11": "4.7.11",
     "npm:kysely@0.28.2": "0.28.2",
+    "npm:neverthrow@^8.2.0": "8.2.0",
     "npm:pg@8.16.0": "8.16.0",
     "npm:react-dom@19.0.0": "19.0.0_react@19.0.0",
     "npm:react-router@7.6.1": "7.6.1_react@19.0.0_react-dom@19.0.0__react@19.0.0",
@@ -1689,6 +1690,12 @@
       "integrity": "sha512-N8SpfPUnUp1bK+PMYW8qSWdl9U+wwNWI4QKxOYDy9JAro3WMX7p2OeVRF9v+347pnakNevPmiHhNmZ2HbFA76w==",
       "bin": true
     },
+    "neverthrow@8.2.0": {
+      "integrity": "sha512-kOCT/1MCPAxY5iUV3wytNFUMUolzuwd/VF/1KCx7kf6CutrOsTie+84zTGTpgQycjvfLdBBdvBvFLqFD2c0wkQ==",
+      "optionalDependencies": [
+        "@rollup/rollup-linux-x64-gnu"
+      ]
+    },
     "node-releases@2.0.19": {
       "integrity": "sha512-xxOWJsBKtzAq7DY0J+DTzuz58K8e7sJbdgwkbMWQe8UYB6ekmsQ45q0M/tJDsGaZmbC+l7n57UV8Hl5tHxO9uw=="
     },
@@ -2074,6 +2081,7 @@
       "npm:@vitejs/plugin-react@4.3.4",
       "npm:hono@^4.7.11",
       "npm:kysely@0.28.2",
+      "npm:neverthrow@^8.2.0",
       "npm:pg@8.16.0",
       "npm:react-dom@19.0.0",
       "npm:react-router@7.6.1",

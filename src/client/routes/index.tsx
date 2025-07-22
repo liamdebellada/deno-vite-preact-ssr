@@ -10,8 +10,13 @@ const Users = () => {
     queryKey: ["users"],
     queryFn: async () => {
       const response = await apiClient.users.$get();
-      return await response.json();
+      const json = await response.json();
+
+      if ("error" in json) throw new Error(json.error);
+
+      return json;
     },
+    retry: false,
   });
 
   if (isPending) return <Spinner />;

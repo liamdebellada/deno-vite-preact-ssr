@@ -4,5 +4,9 @@ import * as usersService from "./users.service.ts";
 export const getUsers = async (c: Context) => {
   const users = await usersService.getUsers();
 
-  return c.json(users);
+  if (!users.isOk()) {
+    return c.json({ error: users.error }, 400);
+  }
+
+  return c.json(users.value);
 };
